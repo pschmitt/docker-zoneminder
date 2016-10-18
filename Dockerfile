@@ -29,8 +29,8 @@ ENV ZM_SERVER_HOST=localhost ZM_DB_TYPE=mysql ZM_DB_HOST=zm.db \
     ZM_DB_PORT=3306 ZM_DB_NAME=zoneminder ZM_DB_USER=zoneminder \
     ZM_DB_PASS=zoneminder
 
-COPY files/entrypoint.sh /entrypoint.sh
-COPY files/supervisord.conf /etc/supervisord.conf
-COPY files/mysql.sh /usr/bin/zm_mysql
+COPY entrypoint.sh /entrypoint.sh
+COPY supervisord.conf /etc/supervisord.conf
+COPY mysql.sh /usr/bin/zm_mysql
 
 ENTRYPOINT ["/entrypoint.sh"]
