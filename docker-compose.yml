@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+    database:
+        image: mariadb
+        container_name: zmdb
+        environment:
+            - MYSQL_DATABASE=zoneminder
+            - MYSQL_USER=zoneminder
+            - MYSQL_PASSWORD=VozHfizmy9TBQ4WVyvuBChklicRyiuch2JxjzExN
+            - MYSQL_RANDOM_ROOT_PASSWORD=true
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+
+    zoneminder:
+        image: pschmitt/zoneminder
+        depends_on:
+            - database
+        environment:
+            - ZM_DB_HOST=zm.db
+            - ZM_DB_PORT=3306
+            - ZM_DB_NAME=zoneminder
+            - ZM_DB_USER=zoneminder
+            - ZM_DB_PASS=VozHfizmy9TBQ4WVyvuBChklicRyiuch2JxjzExN
+        volumes:
+            - ./config/zoneminder:/config
+        links:
+            - database:zm.db
+
+    frontend:
+        image: nginx:stable-alpine
+        depends_on:
+            - zoneminder
+        links:
+            - zoneminder:zoneminder
+        ports:
+            - 80:80
+            - 443:443
+
