@@ -31,6 +31,6 @@ ENV ZM_SERVER_HOST=localhost ZM_DB_TYPE=mysql ZM_DB_HOST=zm.db \
 
 COPY entrypoint.sh /entrypoint.sh
 COPY supervisord.conf /etc/supervisord.conf
-COPY mysql.sh /usr/bin/zm_mysql
+COPY zm_mysql.sh /usr/bin/zm_mysql.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
