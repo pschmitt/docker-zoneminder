@@ -33,9 +33,9 @@ fi
 
 # Init DB
 DB_INITALIZED="$(mysql -u $ZM_DB_USER --password=$ZM_DB_PASS -h $ZM_DB_HOST $ZM_DB_NAME -e 'show tables;')"
- if [[ -z $DB_INITALIZED ]]
+if [[ -z "$DB_INITALIZED" ]]
 then
-    echo -e "Database has not been initialized..."
+    echo -n "Database has not been initialized... "
     sed -i 's/`zm`/'"$ZM_DB_NAME"'/g' /usr/share/zoneminder/db/zm_create.sql
     # /etc/init.d/zoneminder setup
     mysql -u "$ZM_DB_USER" -p"$ZM_DB_PASS" -h "$ZM_DB_HOST" -P "$ZM_DB_PORT" < "/usr/share/zoneminder/db/zm_create.sql"
