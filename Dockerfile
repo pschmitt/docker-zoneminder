@@ -1,15 +1,14 @@
-FROM alpine:3.4
+FROM alpine:edge
 
 MAINTAINER Philipp Schmitt <philipp@schmitt.co>
 
-RUN echo "@edge http://dl-4.alpinelinux.org/alpine/edge/community/" >> \
-        /etc/apk/repositories \
-    && apk add --no-cache zoneminder@edge mysql-client lighttpd php5-fpm \
+RUN echo "@testing http://dl-4.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk add --no-cache zoneminder mysql-client lighttpd php5-fpm \
         php5-pdo php5-pdo_mysql supervisor ffmpeg perl-data-uuid \
-        perl-data-dump@edge \
+        perl-data-dump perl-sys-mmap perl-sys-cpu@testing perl-xml-parser \
     && apk add --no-cache --virtual build-deps make gcc musl-dev perl-dev \
        expat-dev \
-    && cpan install XML::Parser::Expat Class::Std::Fast IO::Socket::Multicast \
+    && cpan install Class::Std::Fast IO::Socket::Multicast Sys::MemInfo \
     && cpan -f install SOAP::WSDL \
     && apk del --no-cache build-deps
 
